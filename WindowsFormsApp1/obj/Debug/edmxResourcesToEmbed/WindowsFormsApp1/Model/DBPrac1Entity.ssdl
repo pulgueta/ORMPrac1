@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBPractModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__RefactorLog">
+    <Key>
+      <PropertyRef Name="OperationKey" />
+    </Key>
+    <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALUMNI">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DIRECTIVE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNum" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Id_Alumni" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="JOINED">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Alumni" Type="int" Nullable="false" />
+    <Property Name="Cod_Subject" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SUBJECT">
+    <Key>
+      <PropertyRef Name="Cod" />
+    </Key>
+    <Property Name="Cod" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Duration" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Init_Date" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DIRECTIVE_ALUMNI">
+    <End Role="ALUMNI" Type="Self.ALUMNI" Multiplicity="1" />
+    <End Role="DIRECTIVE" Type="Self.DIRECTIVE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALUMNI">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DIRECTIVE">
+        <PropertyRef Name="Id_Alumni" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOINED_ALUMNI">
+    <End Role="ALUMNI" Type="Self.ALUMNI" Multiplicity="1" />
+    <End Role="JOINED" Type="Self.JOINED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALUMNI">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JOINED">
+        <PropertyRef Name="Id_Alumni" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOINED_SUBJECT">
+    <End Role="SUBJECT" Type="Self.SUBJECT" Multiplicity="1" />
+    <End Role="JOINED" Type="Self.JOINED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUBJECT">
+        <PropertyRef Name="Cod" />
+      </Principal>
+      <Dependent Role="JOINED">
+        <PropertyRef Name="Cod_Subject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBPractModelStoreContainer">
+    <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ALUMNI" EntityType="Self.ALUMNI" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DIRECTIVE" EntityType="Self.DIRECTIVE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JOINED" EntityType="Self.JOINED" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SUBJECT" EntityType="Self.SUBJECT" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DIRECTIVE_ALUMNI" Association="Self.FK_DIRECTIVE_ALUMNI">
+      <End Role="ALUMNI" EntitySet="ALUMNI" />
+      <End Role="DIRECTIVE" EntitySet="DIRECTIVE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOINED_ALUMNI" Association="Self.FK_JOINED_ALUMNI">
+      <End Role="ALUMNI" EntitySet="ALUMNI" />
+      <End Role="JOINED" EntitySet="JOINED" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOINED_SUBJECT" Association="Self.FK_JOINED_SUBJECT">
+      <End Role="SUBJECT" EntitySet="SUBJECT" />
+      <End Role="JOINED" EntitySet="JOINED" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

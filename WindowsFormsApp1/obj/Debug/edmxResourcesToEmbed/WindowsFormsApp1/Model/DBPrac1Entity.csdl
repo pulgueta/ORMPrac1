@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBPractModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__RefactorLog">
+    <Key>
+      <PropertyRef Name="OperationKey" />
+    </Key>
+    <Property Name="OperationKey" Type="Guid" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALUMNI">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DIRECTIVE" Relationship="Self.FK_DIRECTIVE_ALUMNI" FromRole="ALUMNI" ToRole="DIRECTIVE" />
+    <NavigationProperty Name="JOINED" Relationship="Self.FK_JOINED_ALUMNI" FromRole="ALUMNI" ToRole="JOINED" />
+  </EntityType>
+  <EntityType Name="DIRECTIVE">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Id_Alumni" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALUMNI" Relationship="Self.FK_DIRECTIVE_ALUMNI" FromRole="DIRECTIVE" ToRole="ALUMNI" />
+  </EntityType>
+  <EntityType Name="JOINED">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_Alumni" Type="Int32" Nullable="false" />
+    <Property Name="Cod_Subject" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ALUMNI" Relationship="Self.FK_JOINED_ALUMNI" FromRole="JOINED" ToRole="ALUMNI" />
+    <NavigationProperty Name="SUBJECT" Relationship="Self.FK_JOINED_SUBJECT" FromRole="JOINED" ToRole="SUBJECT" />
+  </EntityType>
+  <EntityType Name="SUBJECT">
+    <Key>
+      <PropertyRef Name="Cod" />
+    </Key>
+    <Property Name="Cod" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Init_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="JOINED" Relationship="Self.FK_JOINED_SUBJECT" FromRole="SUBJECT" ToRole="JOINED" />
+  </EntityType>
+  <Association Name="FK_DIRECTIVE_ALUMNI">
+    <End Role="ALUMNI" Type="Self.ALUMNI" Multiplicity="1" />
+    <End Role="DIRECTIVE" Type="Self.DIRECTIVE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALUMNI">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DIRECTIVE">
+        <PropertyRef Name="Id_Alumni" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOINED_ALUMNI">
+    <End Role="ALUMNI" Type="Self.ALUMNI" Multiplicity="1" />
+    <End Role="JOINED" Type="Self.JOINED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ALUMNI">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JOINED">
+        <PropertyRef Name="Id_Alumni" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JOINED_SUBJECT">
+    <End Role="SUBJECT" Type="Self.SUBJECT" Multiplicity="1" />
+    <End Role="JOINED" Type="Self.JOINED" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SUBJECT">
+        <PropertyRef Name="Cod" />
+      </Principal>
+      <Dependent Role="JOINED">
+        <PropertyRef Name="Cod_Subject" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBPractEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
+    <EntitySet Name="ALUMNI" EntityType="Self.ALUMNI" />
+    <EntitySet Name="DIRECTIVE" EntityType="Self.DIRECTIVE" />
+    <EntitySet Name="JOINED" EntityType="Self.JOINED" />
+    <EntitySet Name="SUBJECT" EntityType="Self.SUBJECT" />
+    <AssociationSet Name="FK_DIRECTIVE_ALUMNI" Association="Self.FK_DIRECTIVE_ALUMNI">
+      <End Role="ALUMNI" EntitySet="ALUMNI" />
+      <End Role="DIRECTIVE" EntitySet="DIRECTIVE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOINED_ALUMNI" Association="Self.FK_JOINED_ALUMNI">
+      <End Role="ALUMNI" EntitySet="ALUMNI" />
+      <End Role="JOINED" EntitySet="JOINED" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JOINED_SUBJECT" Association="Self.FK_JOINED_SUBJECT">
+      <End Role="SUBJECT" EntitySet="SUBJECT" />
+      <End Role="JOINED" EntitySet="JOINED" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

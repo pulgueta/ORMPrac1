@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBPractModelStoreContainer" CdmEntityContainer="DBPractEntities2">
+    <EntitySetMapping Name="C__RefactorLog">
+      <EntityTypeMapping TypeName="DBPractModel.C__RefactorLog">
+        <MappingFragment StoreEntitySet="__RefactorLog">
+          <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALUMNI">
+      <EntityTypeMapping TypeName="DBPractModel.ALUMNI">
+        <MappingFragment StoreEntitySet="ALUMNI">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DIRECTIVE">
+      <EntityTypeMapping TypeName="DBPractModel.DIRECTIVE">
+        <MappingFragment StoreEntitySet="DIRECTIVE">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+          <ScalarProperty Name="Id_Alumni" ColumnName="Id_Alumni" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JOINED">
+      <EntityTypeMapping TypeName="DBPractModel.JOINED">
+        <MappingFragment StoreEntitySet="JOINED">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Id_Alumni" ColumnName="Id_Alumni" />
+          <ScalarProperty Name="Cod_Subject" ColumnName="Cod_Subject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUBJECT">
+      <EntityTypeMapping TypeName="DBPractModel.SUBJECT">
+        <MappingFragment StoreEntitySet="SUBJECT">
+          <ScalarProperty Name="Cod" ColumnName="Cod" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Init_Date" ColumnName="Init_Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
